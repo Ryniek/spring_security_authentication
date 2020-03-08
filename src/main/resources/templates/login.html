@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Zaloguj się</title>
+</head>
+<body>
+
+    <h1>Zaloguj się</h1>
+    <form th:action="@{/login}" method="post">
+        <label for="username">Login</label>
+        <input type="text" id="username" name="username" /> <br />
+        <label for="password">Hasło</label>
+        <input type="password" id="password" name="password" /> <br />
+        <input type="submit" value="Zaloguj się">
+    </form>
+    <br />
+</body>
+</html>

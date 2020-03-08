@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Zarejestruj się</title>
+</head>
+<body>
+    <form th:action="@{/register}" method="post">
+        <label for="username">Login</label>
+        <input type="text" id="username" name="username"/> <br />
+        <label for="password">Hasło</label>
+        <input type="password" id="password" name="password"/> <br />
+        <input type="checkbox" id="role-admin" name="role-admin">
+        <label for="role-admin" class="inline">ADMIN</label> <br />
+        <input type="submit" value="Zarejestruj się">
+    </form>
+</body>
+</html>
