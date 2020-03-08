@@ -1,24 +1,32 @@
 package pl.rynski.lab2_zajecia.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.ArrayList;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-public class AppUser {
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email(message = "Zachowaj strukture emaila")
+    @NotBlank(message = "Pole na login nie moze byc puste")
     private String username;
+    @Size(min = 3, max = 150, message = "Haslo minimum 3 znaki")
     private String password;
     private boolean isEnabled;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name="user_role")
-    private List<AppUserRole> roles = new ArrayList<>();
+    private Set<AppUserRole> roles = new HashSet<>();
 
     public AppUser() {
     }
@@ -55,11 +63,31 @@ public class AppUser {
         return isEnabled;
     }
 
-    public List<AppUserRole> getRoles() {
+    public Set<AppUserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<AppUserRole> roles) {
+    public void setRoles(Set<AppUserRole> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 }

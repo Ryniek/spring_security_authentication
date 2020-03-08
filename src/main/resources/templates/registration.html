@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Zarejestruj się</title>
 </head>
 <body>
-    <form th:action="@{/register}" method="post">
+    <form th:action="@{/register}" th:object="${appUser}" method="post">
         <label for="username">Login</label>
-        <input type="text" id="username" name="username"/> <br />
+        <input type="text" id="username" name="username" th:field="*{username}"/> <br />
+        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
         <label for="password">Hasło</label>
-        <input type="password" id="password" name="password"/> <br />
-        <input type="checkbox" id="role-admin" name="role-admin">
-        <label for="role-admin" class="inline">ADMIN</label> <br />
+        <input type="password" id="password" name="password" th:field="*{password}"/> <br />
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">PAssword Error</p>
+        <input type="checkbox" id="adminCheckbox" name="adminCheckbox">
+        <label for="adminCheckbox" class="inline">ADMIN</label> <br />
         <input type="submit" value="Zarejestruj się">
     </form>
+    <a th:href="@{/login}">Logowanie</a>
 </body>
 </html>

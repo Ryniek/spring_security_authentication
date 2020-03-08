@@ -6,4 +6,5 @@ import pl.rynski.lab2_zajecia.model.AppUserRole;
 
 @Repository
 public interface AppUserRoleRepository extends JpaRepository<AppUserRole, Long> {
+    AppUserRole findByName(String name);
 }

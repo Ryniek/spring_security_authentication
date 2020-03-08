@@ -1,18 +1,20 @@
 package pl.rynski.lab2_zajecia.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class AppUserRole {
+public class AppUserRole implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private List<AppUser> users = new ArrayList<>();
+    private Set<AppUser> users = new HashSet<>();
 
     public AppUserRole() {
     }
@@ -33,12 +35,16 @@ public class AppUserRole {
         this.name = name;
     }
 
-    public List<AppUser> getUsers() {
+    public Set<AppUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<AppUser> users) {
+    public void setUsers(Set<AppUser> users) {
         this.users = users;
     }
 
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 }
